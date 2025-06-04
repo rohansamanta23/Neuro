@@ -8,18 +8,13 @@ export const registerUser = async (userData) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(response);
     if (response.data.success) {
-        console.log("ok");
       return response.data;
     } else {
       throw new Error(response.data.message || "Registration failed");
     }
   } catch (error) {
-    if (error.response) {
-      throw new Error(error.response.data.message || "Registration failed");
-    } else {
-      throw new Error("Network error or server not reachable");
-    }
+    const message = error.response?.data?.message || "Registration failed";
+    throw new Error(message);
   }
 };

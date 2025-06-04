@@ -48,7 +48,18 @@ export default function RegisterForm() {
       return;
     }
     try {
-      await registerUser(formData);
+      const res = await registerUser(formData);
+      console.log(res.message);
+      // Optionally, redirect or show success message
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        avatar: null,
+      });
+      setError(""); // Clear any previous errors
+      nameRef.current.focus(); // Reset focus to the name field
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.");
     }
